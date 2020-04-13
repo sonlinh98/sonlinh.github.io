@@ -1,0 +1,357 @@
+<div class="section content" style="height: auto !important;">
+                            <h1 class="title entry-title">Nginx là gì? Cài đặt và cấu hình Nginx Web Server</h1>
+              <div class="entry-meta">
+    <p>
+        <i class="fa fa-user"></i>
+        <span class="vcard author"> <span class="fn">admin</span></span>
+        <i class="fa fa-calendar"></i>
+        <span class="post-date updated">04/10/2019</span>
+        <i class="fa fa-folder-open"></i>
+        <span>
+            <a href="https://vinasupport.com/web-server/nginx/" rel="category tag">Nginx</a>        </span>
+                <i class="fa fa-eye"></i>
+        <span>
+            <strong>2,594</strong> lượt xem        </span>
+                <i class="fa fa-comments"></i>
+        <span>
+            <a href="https://vinasupport.com/nginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server/#respond">Chưa có bình luận</a>        </span>
+    </p>
+</div>              <hr class="spa">
+                  <div>
+        <!-- Banner on Post -->
+        <ins class="adsbygoogle" style="display: block; height: 280px;" data-ad-client="ca-pub-6107623425930461" data-ad-slot="8949796679" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><iframe width="954" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 954px; height: 280px; overflow: visible;"></iframe></ins></ins></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+              <div class="section entry-content pstyle">
+              <p><a href="https://vinasupport.com/web-server/nginx/"><strong>Nginx</strong></a> là 1 trong những Web Server phổ biến, được sử dụng trong nhiều hệ thống máy chủ Web trên thế giới. Bản thân website vinasupport.com cũng đang sử dụng Nginx để làm máy chủ Web. Bài viết này sẽ giới thiệu, hướng dẫn cài đặt chi tiết trên Linux,&nbsp;<a href="https://vinasupport.com/tag/cau-hinh-nginx/">cấu hình,</a>&nbsp;<a href="https://vinasupport.com/tag/config-nginx/">config</a>&nbsp;và sử dụng Nginx.</p>
+<h2>Nginx là gì?</h2>
+<p><a href="https://vinasupport.com/tag/nginx-la-gi/">Nginx</a> là một Web Server nhẹ, mạnh mẽ và sử dụng kiến trúc đơn luồng, hướng sự kiện vì thế nó sử dụng tài nguyên hợp lý hơn Apache Server. Vì vậy nó thường được sử dụng phổ biến với các nhiệm vụ như là <a href="https://vinasupport.com/tag/load-balancing/">Load Balancing</a>, HTTP caching, hay sử dụng như một Reverse Proxy.</p>
+<ul>
+<li><strong>Tác giả</strong>: Igor Sysoev</li>
+<li>Phát triển bởi Nginx, Inc.</li>
+<li>Phát hành lần đầu vào 04/10/2004</li>
+<li>Phiên bản ổn định: 1.16.1 (13/08/2019) ở thời điểm viết bài này</li>
+<li>Repository: hg.nginx.org/nginx</li>
+<li>Ngôn ngữ lập trình: C</li>
+<li>OS: BSD variants, HP-UX, IBM AIX, Linux, macOS, Solaris, Windows</li>
+<li>Loại phần mềm: Web server, reverse/mail proxy server</li>
+<li>Website: nginx.org</li>
+</ul>
+<h2>Cài đặt Nginx Web Server</h2>
+<p>Để <a href="https://vinasupport.com/tag/cai-dat-nginx/">cài đặt Nginx</a> Web Server sử dụng lệnh sau:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;"># Trên CentOS / RHEL / Fedora
+sudo yum install -y nginx
+
+# Trên Ubuntu / Debian / LinuxMint
+sudo apt install -y nginx</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class=""># Trên CentOS / RHEL / Fedora</span></li><li class=" even"><span class="">sudo yum install -y nginx</span></li><li class=" odd"><span class=""></span></li><li class=" even"><span class=""># Trên Ubuntu / Debian / LinuxMint</span></li><li class=" odd"><span class="">sudo apt install -y nginx</span></li></ul><pre style="display: none;"># Trên CentOS / RHEL / Fedora
+sudo yum install -y nginx
+
+# Trên Ubuntu / Debian / LinuxMint
+sudo apt install -y nginx</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Khởi động và cho phép khởi động khi boot hệ điều hành</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">sudo systemctl start nginx.service
+sudo systemctl enable nginx.service</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class="">sudo systemctl start nginx.service</span></li><li class=" even"><span class="">sudo systemctl enable nginx.service</span></li></ul><pre style="display: none;">sudo systemctl start nginx.service
+sudo systemctl enable nginx.service</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Kiểm tra Service đã hoạt động chưa.</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">sudo systemctl status nginx.service</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class="">sudo systemctl status nginx.service</span></li></ul><pre style="display: none;">sudo systemctl status nginx.service</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p><img class="alignnone size-full wp-image-1413" src="https://vinasupport.com/uploads/2019/09/Kiem-Tra-Status-Nginx-Service.png" alt="" width="805" height="292" srcset="https://vinasupport.com/uploads/2019/09/Kiem-Tra-Status-Nginx-Service.png 805w, https://vinasupport.com/uploads/2019/09/Kiem-Tra-Status-Nginx-Service-640x232.png 640w, https://vinasupport.com/uploads/2019/09/Kiem-Tra-Status-Nginx-Service-768x279.png 768w" sizes="(max-width: 805px) 100vw, 805px"></p>
+<p>Mặc định tường lửa trên HDH sẽ chặn cổng 80 của Nginx, để mở cổng chúng ta sử dụng lệnh sau:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">#&nbsp;Trên&nbsp;CentOS&nbsp;/&nbsp;RHEL&nbsp;/&nbsp;Fedora
+
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --reload
+
+#&nbsp;Trên&nbsp;Ubuntu&nbsp;/&nbsp;Debian&nbsp;/&nbsp;LinuxMint
+sudo ufw allow 'Nginx Full'</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class=""># Trên CentOS / RHEL / Fedora</span></li><li class=" even"><span class=""></span></li><li class=" odd"><span class="">sudo firewall-cmd --zone=public --add-port=80/tcp --permanent</span></li><li class=" even"><span class="">sudo firewall-cmd --reload</span></li><li class=" odd"><span class=""></span></li><li class=" even"><span class=""># Trên Ubuntu / Debian / LinuxMint</span></li><li class=" odd"><span class="">sudo ufw allow 'Nginx Full'</span></li></ul><pre style="display: none;"># Trên CentOS / RHEL / Fedora
+
+sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --reload
+
+# Trên Ubuntu / Debian / LinuxMint
+sudo ufw allow 'Nginx Full'</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Mở trình duyệt và truy cập với đường dẫn http://&lt;Hostname hoặc IP Address&gt; mà hiển thị trang “<strong>Test Page</strong>” của Nginx thì chúng ta đã cài đặt thành công.</p>
+<p><img class="alignnone size-full wp-image-1414" src="https://vinasupport.com/uploads/2019/09/Kiem-Tra-Truy-Cap-Nginx-Web-Server.png" alt="" width="821" height="561" srcset="https://vinasupport.com/uploads/2019/09/Kiem-Tra-Truy-Cap-Nginx-Web-Server.png 821w, https://vinasupport.com/uploads/2019/09/Kiem-Tra-Truy-Cap-Nginx-Web-Server-640x437.png 640w, https://vinasupport.com/uploads/2019/09/Kiem-Tra-Truy-Cap-Nginx-Web-Server-768x525.png 768w" sizes="(max-width: 821px) 100vw, 821px"></p>
+<h2>Các lệnh cần thiết để quản lý</h2>
+<p>Kiểm tra cú pháp file cấu hình</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">sudo nginx -t</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class="">sudo nginx -t</span></li></ul><pre style="display: none;">sudo nginx -t</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Reload lại file cấu hình</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">sudo nginx -s reload</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class="">sudo nginx -s reload</span></li></ul><pre style="display: none;">sudo nginx -s reload</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Mở file log</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="raw" data-enlighter-theme="mocha" data-enlighter-linenumbers="false" style="display: none;">sudo nginx -s reopen</pre><div class="EnlighterJSWrapper mochaEnlighterJSWrapper"><ul class="hoverEnabled mochaEnlighterJS EnlighterJS"><li class=" odd"><span class="">sudo nginx -s reopen</span></li></ul><pre style="display: none;">sudo nginx -s reopen</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<h2>Cấu hình Nginx Web Server</h2>
+<h3>Danh sách file và thư mục quan trọng</h3>
+<ul>
+<li><strong>/etc/nginx/nginx.conf</strong>: File config chính</li>
+<li>/etc/nginx/conf.d: Thư mục chưa các file config của riêng bạn</li>
+<li>/etc/nginx/sites-available: Thư mục chưa các file config VirtualHost, cho phép chúng ta cấu hình riêng biệt cho từng website</li>
+<li>/etc/nginx/sites-available/default: File config Virtual Hosts mặc định</li>
+</ul>
+<h3>Cấu hình Virtual Hosts</h3>
+<p>Để cấu hình <a href="https://vinasupport.com/tag/virtual-hosts/">Virtual Hosts</a>, các bạn vui lòng tham khảo bài viết được viết rất chi tiết ở đây:&nbsp;<a href="https://vinasupport.com/huong-dan-cau-hinh-virtual-hosts-tren-nginx/">Hướng dẫn cấu hình Virtual Hosts trên Nginx</a></p>
+<h3>Cấu hình Log</h3>
+<p>Thông thường, log của Nginx được lưu ở trong thư mục /var/log/nginx gồm có 2 file là:</p>
+<ul>
+<li>access.log: Lưu lại thông tin truy cập tới Web Server</li>
+<li>error.log: Lưu lại thông tin lỗi</li>
+</ul>
+<p>Để thay đổi đường dẫn 2 file này chúng ta sửa 2 tham số là <strong>error_log</strong> và <strong>access_log</strong> trong file <strong>/etc/nginx/nginx.conf</strong>:</p>
+<pre class="EnlighterJSRAW" data-enlighter-language="ini" style="display: none;">http {
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+}</pre><div class="EnlighterJSWrapper godzillaEnlighterJSWrapper"><ol class="hoverEnabled godzillaEnlighterJS EnlighterJS"><li class=" odd"><span class="">http </span><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">        ##</span></li><li class=" odd"><span class="">        # Logging Settings</span></li><li class=" even"><span class="">        ##</span></li><li class=" odd"><span class=""></span></li><li class=" even"><span class="">        access_log /var/log/nginx/access.log</span><span class="co1">;</span><span class=""></span></li><li class=" odd"><span class="">        error_log /var/log/nginx/error.log</span><span class="co1">;</span><span class=""></span></li><li class=" even"><span class=""></span><span class="br0">}</span></li></ol><pre style="display: none;">http {
+        ##
+        # Logging Settings
+        ##
+
+        access_log /var/log/nginx/access.log;
+        error_log /var/log/nginx/error.log;
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p>Bạn có thể thêm 2 tham số này vào cấu hình virtualhost để đặt đường dẫn file log riêng biệt cho từng website.</p>
+<h3>Cấu hình gzip</h3>
+<p><a href="https://vinasupport.com/tag/gzip/">Gzip</a> là phương pháp nén dữ liệu trả về của server, giúp giảm tải thời gian tải tài nguyền từ server về client.</p>
+<p>Để bật gzip trên Nginx chúng ta sửa file config&nbsp;<strong>/etc/nginx/nginx.conf</strong></p><div class="google-auto-placed ap_container" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-6107623425930461" data-adsbygoogle-status="done" style="display: block; margin: auto; background-color: transparent;"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:200px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><iframe width="954" height="200" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;border:0px;width:954px;height:200px;"></iframe></ins></ins></ins></div>
+<pre class="EnlighterJSRAW" data-enlighter-language="ini" style="display: none;">http {
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}</pre><div class="EnlighterJSWrapper godzillaEnlighterJSWrapper"><ol class="hoverEnabled godzillaEnlighterJS EnlighterJS"><li class=" odd"><span class="">http </span><span class="br0">{</span><span class=""></span></li><li class=" even"><span class="">        ##</span></li><li class=" odd"><span class="">        # Gzip Settings</span></li><li class=" even"><span class="">        ##</span></li><li class=" odd"><span class=""></span></li><li class=" even"><span class="">        gzip </span><span class="kw2">on</span><span class="co1">;</span><span class=""></span></li><li class=" odd"><span class=""></span></li><li class=" even"><span class="">        gzip_vary </span><span class="kw2">on</span><span class="co1">;</span><span class=""></span></li><li class=" odd"><span class="">        gzip_proxied any</span><span class="co1">;</span><span class=""></span></li><li class=" even"><span class="">        gzip_comp_level </span><span class="nu0">6</span><span class="co1">;</span><span class=""></span></li><li class=" odd"><span class="">        gzip_buffers </span><span class="nu0">16</span><span class=""> </span><span class="nu0">8</span><span class="">k</span><span class="co1">;</span><span class=""></span></li><li class=" even"><span class="">        gzip_http_version </span><span class="nu0">1.1</span><span class="co1">;</span><span class=""></span></li><li class=" odd"><span class="">        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript</span><span class="co1">;</span><span class=""></span></li><li class=" even"><span class=""></span><span class="br0">}</span></li></ol><pre style="display: none;">http {
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}</pre><div class="EnlighterJSToolbar"><a class="EnlighterJSRawButton" title="Toggle RAW Code"></a><a class="EnlighterJSWindowButton" title="Open Code in new Window"></a><span class="clear"></span></div></div>
+<p style="text-align: right;">Nguồn: vinasupport.com</p>
+              </div>
+              <div>
+    <ins class="adsbygoogle" style="display: block; height: 477px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-6107623425930461" data-ad-slot="7549293825" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:477px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:477px;margin:0;padding:0;position:relative;visibility:visible;width:954px;background-color:transparent;"><iframe width="954" height="477" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0px;width:954px;height:477px;"></iframe></ins></ins></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div class="tags">
+    <span class="chip grey darken-3 white-text"><i class="fa fa-tags" aria-hidden="true"></i> TAGS: </span>
+        <a href="https://vinasupport.com/tag/cau-hinh-nginx/" class="chip" title="Cấu hình Nginx">Cấu hình Nginx</a>
+        <a href="https://vinasupport.com/tag/cai-dat-nginx/" class="chip" title="Cài đặt Nginx">Cài đặt Nginx</a>
+        <a href="https://vinasupport.com/tag/virtual-hosts/" class="chip" title="Virtual Hosts">Virtual Hosts</a>
+        <a href="https://vinasupport.com/tag/may-chu-linux/" class="chip" title="máy chủ Linux">máy chủ Linux</a>
+        <a href="https://vinasupport.com/tag/config-nginx/" class="chip" title="Config Nginx">Config Nginx</a>
+        <a href="https://vinasupport.com/tag/nginx-la-gi/" class="chip" title="Nginx là gì?">Nginx là gì?</a>
+        <a href="https://vinasupport.com/tag/tong-quan-ve-nginx/" class="chip" title="Tổng quan về Nginx">Tổng quan về Nginx</a>
+        <a href="https://vinasupport.com/tag/load-balancing/" class="chip" title="Load Balancing">Load Balancing</a>
+        <a href="https://vinasupport.com/tag/gzip/" class="chip" title="Gzip">Gzip</a>
+        <a href="https://vinasupport.com/tag/cau-hinh-virtual-hosts/" class="chip" title="Cấu hình Virtual Hosts">Cấu hình Virtual Hosts</a>
+    </div>
+              <div class="entry-sharing td-post-sharing td-post-sharing-bottom td-with-like">
+    <span class="td-post-share-title">SHARE</span>
+    <div class="td-default-sharing">
+        <a class="td-social-sharing-buttons td-social-facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fvinasupport.com%2Fnginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server%2F" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+            <i class="fa fa-facebook fa-lg" aria-hidden="true"></i>
+            <span class="td-social-but-text">Facebook</span>
+        </a>
+        <a class="td-social-sharing-buttons td-social-twitter" href="https://twitter.com/intent/tweet?text=Nginx+l%C3%A0+g%C3%AC%3F+C%C3%A0i+%C4%91%E1%BA%B7t+v%C3%A0+c%E1%BA%A5u+h%C3%ACnh+Nginx+Web+Server&amp;url=https%3A%2F%2Fvinasupport.com%2Fnginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server%2F&amp;via=Nginx+l%C3%A0+1+trong+nh%E1%BB%AFng+Web+Server+ph%E1%BB%95+bi%E1%BA%BFn%2C+%C4%91%C6%B0%E1%BB%A3c+s%E1%BB%AD+d%E1%BB%A5ng+trong+nhi%E1%BB%81u+h%E1%BB%87+th%E1%BB%91ng+m%C3%A1y+ch%E1%BB%A7+Web+tr%C3%AAn+th%E1%BA%BF+gi%E1%BB%9Bi.+B%E1%BA%A3n+th%C3%A2n+website+vinasupport.com+c%C5%A9ng+%C4%91ang+s%E1%BB%AD+d%E1%BB%A5ng+Nginx+%C4%91%E1%BB%83+l%C3%A0m+m%C3%A1y+ch%E1%BB%A7+Web.+B%C3%A0i+vi%E1%BA%BFt+n%C3%A0y+s%E1%BA%BD+gi%E1%BB%9Bi+thi%E1%BB%87u%2C+h%C6%B0%E1%BB%9Bng+d%E1%BA%ABn+c%C3%A0i+%C4%91%E1%BA%B7t+chi+ti%E1%BA%BFt+tr%C3%AAn+Linux%2C%C2%A0c%E1%BA%A5u+h%C3%ACnh%2C%C2%A0config%C2%A0v%C3%A0+s%E1%BB%AD+d%E1%BB%A5ng+Nginx.+Nginx+%5B%26hellip%3B%5D" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+            <i class="fa fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="td-social-but-text">Twitter</span>
+        </a>
+        <a class="td-social-sharing-buttons td-social-email" href="mailto:?Subject=Nginx+l%C3%A0+g%C3%AC%3F+C%C3%A0i+%C4%91%E1%BA%B7t+v%C3%A0+c%E1%BA%A5u+h%C3%ACnh+Nginx+Web+Server&amp;body=https://vinasupport.com/nginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server/">
+          <i class="fa fa-envelope fa-lg" aria-hidden="true"></i>
+          <span class="td-social-but-text">Email</span>
+        </a>
+        <a class="td-social-sharing-buttons td-social-pinterest" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fvinasupport.com%2Fnginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server%2F&amp;media=&amp;description=Nginx+l%C3%A0+1+trong+nh%E1%BB%AFng+Web+Server+ph%E1%BB%95+bi%E1%BA%BFn%2C+%C4%91%C6%B0%E1%BB%A3c+s%E1%BB%AD+d%E1%BB%A5ng+trong+nhi%E1%BB%81u+h%E1%BB%87+th%E1%BB%91ng+m%C3%A1y+ch%E1%BB%A7+Web+tr%C3%AAn+th%E1%BA%BF+gi%E1%BB%9Bi.+B%E1%BA%A3n+th%C3%A2n+website+vinasupport.com+c%C5%A9ng+%C4%91ang+s%E1%BB%AD+d%E1%BB%A5ng+Nginx+%C4%91%E1%BB%83+l%C3%A0m+m%C3%A1y+ch%E1%BB%A7+Web.+B%C3%A0i+vi%E1%BA%BFt+n%C3%A0y+s%E1%BA%BD+gi%E1%BB%9Bi+thi%E1%BB%87u%2C+h%C6%B0%E1%BB%9Bng+d%E1%BA%ABn+c%C3%A0i+%C4%91%E1%BA%B7t+chi+ti%E1%BA%BFt+tr%C3%AAn+Linux%2C%C2%A0c%E1%BA%A5u+h%C3%ACnh%2C%C2%A0config%C2%A0v%C3%A0+s%E1%BB%AD+d%E1%BB%A5ng+Nginx.+Nginx+%5B%26hellip%3B%5D" onclick="window.open(this.href, 'mywin','left=50,top=50,width=600,height=350,toolbar=0'); return false;">
+            <i class="fa fa-pinterest fa-lg" aria-hidden="true"></i>
+        </a>
+            </div>
+    <div class="td-classic-sharing">
+        <ul>
+            <li class="td-classic-facebook">
+              <div class="fb-like" data-href="https://vinasupport.com/nginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
+            </li>
+        </ul>
+    </div>
+</div>                                    <div id="related-post-by-tags" class="related-post">
+        <h2 class="cat-title">Bài viết liên quan</h2>
+        <div class="row">
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/chan-dia-chi-ip-address-tren-nginx-web-server/" title="Chặn địa chỉ IP Address trên Nginx Web Server">
+                                <img src="https://vinasupport.com/uploads/2019/12/403-Forbidden-Nginx-Web-Server-300x250.png" alt="Chặn địa chỉ IP Address trên Nginx Web Server">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/chan-dia-chi-ip-address-tren-nginx-web-server/" title="Chặn địa chỉ IP Address trên Nginx Web Server">Chặn địa chỉ IP Address trên Nginx Web Server</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/huong-dan-redirect-tu-http-toi-https-voi-nginx-web-server/" title="Hướng dẫn Redirect từ HTTP tới HTTPS với Nginx Web Server">
+                                <img src="https://vinasupport.com/uploads/2018/09/Chuyen-Huong-Redirect-HTTP-Toi-HTTPS-Nginx-WebServer-300x250.png" alt="Hướng dẫn Redirect từ HTTP tới HTTPS với Nginx Web Server">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/huong-dan-redirect-tu-http-toi-https-voi-nginx-web-server/" title="Hướng dẫn Redirect từ HTTP tới HTTPS với Nginx Web Server">Hướng dẫn Redirect từ HTTP tới HTTPS với Nginx Web Server</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/huong-dan-cai-dat-va-cau-hinh-wordpress-tren-centos-8/" title="Hướng dẫn cài đặt và cấu hình WordPress trên CentOS 8">
+                                <img src="https://vinasupport.com/uploads/2019/09/Cai-Dat-Va-Cau-Hinh-Wordpress-Tren-CentOS-8-300x250.png" alt="Hướng dẫn cài đặt và cấu hình WordPress trên CentOS 8">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/huong-dan-cai-dat-va-cau-hinh-wordpress-tren-centos-8/" title="Hướng dẫn cài đặt và cấu hình WordPress trên CentOS 8">Hướng dẫn cài đặt và cấu hình WordPress trên CentOS 8</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/huong-dan-cau-hinh-apache-virtual-hosts-tren-ubuntu/" title="Hướng dẫn cấu hình Apache Virtual Hosts trên Ubuntu">
+                                <img src="https://vinasupport.com/uploads/2019/03/apache-virtual-hosts-300x250.png" alt="Hướng dẫn cấu hình Apache Virtual Hosts trên Ubuntu">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/huong-dan-cau-hinh-apache-virtual-hosts-tren-ubuntu/" title="Hướng dẫn cấu hình Apache Virtual Hosts trên Ubuntu">Hướng dẫn cấu hình Apache Virtual Hosts trên Ubuntu</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/quan-ly-user-group-tren-linux-bang-command-line/" title="Quản lý User, Group trên Linux bằng Command Line">
+                                <img src="https://vinasupport.com/uploads/2019/07/Quan-Ly-Linux-User-Group-300x250.png" alt="Quản lý User, Group trên Linux bằng Command Line">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/quan-ly-user-group-tren-linux-bang-command-line/" title="Quản lý User, Group trên Linux bằng Command Line">Quản lý User, Group trên Linux bằng Command Line</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/huong-dan-redirect-duong-dan-trong-nginx/" title="Hướng dẫn redirect đường dẫn trong Nginx">
+                                <img src="https://vinasupport.com/uploads/2019/11/Nginx-Redirect-Duong-Dan-300x250.png" alt="Hướng dẫn redirect đường dẫn trong Nginx">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/huong-dan-redirect-duong-dan-trong-nginx/" title="Hướng dẫn redirect đường dẫn trong Nginx">Hướng dẫn redirect đường dẫn trong Nginx</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/huong-dan-cai-dat-va-cau-hinh-xac-thuc-http-authentication/" title="Hướng dẫn cài đặt và cấu hình xác thực HTTP Authentication cho Nginx">
+                                <img src="https://vinasupport.com/uploads/2018/12/Nginx-Http-Authentication-Xac-Thuc-Co-Ban-300x250.png" alt="Hướng dẫn cài đặt và cấu hình xác thực HTTP Authentication cho Nginx">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/huong-dan-cai-dat-va-cau-hinh-xac-thuc-http-authentication/" title="Hướng dẫn cài đặt và cấu hình xác thực HTTP Authentication cho Nginx">Hướng dẫn cài đặt và cấu hình xác thực HTTP Authentication cho Nginx</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col s12 m6 l3">
+                    <div class="card">
+                        <div class="card-image" style="height: 184.766px;">
+                            <a href="https://vinasupport.com/ruby-on-rails-chay-va-thiet-lap-ung-dung-rails-o-production/" title="[Ruby on Rails] Chạy và thiết lập ứng dụng Rails ở chế độ Production">
+                                <img src="https://vinasupport.com/uploads/2019/01/Rails-Deploy-Application-300x250.png" alt="[Ruby on Rails] Chạy và thiết lập ứng dụng Rails ở chế độ Production">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <a href="https://vinasupport.com/ruby-on-rails-chay-va-thiet-lap-ung-dung-rails-o-production/" title="[Ruby on Rails] Chạy và thiết lập ứng dụng Rails ở chế độ Production">[Ruby on Rails] Chạy và thiết lập ứng dụng Rails ở chế độ Production</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+    </div>
+                  
+<div id="comments" class="comments-area">
+        	<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title"><i class="tiny material-icons prefix">mode_edit</i> Bình luận của bạn <small><a rel="nofollow" id="cancel-comment-reply-link" href="/nginx-la-gi-cai-dat-va-cau-hinh-nginx-web-server/#respond" style="display:none;">Hủy bình luận</a></small></h3>			<form action="https://vinasupport.com/wp-comments-post.php" method="post" id="comment-form" class="comment-form">
+				<p class="comment-notes">Email của bạn sẽ không được hiển thị công khai. Các trường bắt buộc được đánh dấu *</p><div class="row comment-form-message">
+    <div class="input-field col s12">
+        <textarea id="comment-message" name="comment" class="materialize-textarea" rows="8"></textarea>
+        <label for="comment-message">Nội dung bình luận</label>
+    </div>
+</div><div class="row comment-form-author">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="comment-author" type="text" name="author" class="validate" value="" aria-required="true">
+        <label for="comment-author">Name <span class="required">*</span></label>
+    </div>
+</div>
+<div class="row comment-form-email">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">email</i>
+        <input id="message-email" name="email" type="email" class="validate" value="" aria-required="true">
+        <label for="message-email">Email <span class="required">*</span></label>
+    </div>
+</div>
+<div class="row comment-form-url">
+    <div class="input-field col s12">
+        <i class="material-icons prefix">web</i>
+        <input id="message-email" name="url" type="text" class="validate" value="">
+        <label for="message-email">Website</label>
+    </div>
+</div>
+<p class="form-submit"><button id="message-submit" class="btn waves-effect waves-light" type="submit" name="submit">Gửi
+    <i class="material-icons right">send</i>
+</button> <input type="hidden" name="comment_post_ID" value="1499" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+<!-- Anti-spam plugin v.5.2 wordpress.org/plugins/anti-spam/ -->
+		<p class="antispam-group antispam-group-q" style="clear: both; display: none;">
+			<label class="active">Current ye@r <span class="required">*</span></label>
+			<input type="hidden" name="antspm-a" class="antispam-control antispam-control-a" value="2020">
+			<input type="text" name="antspm-q" class="antispam-control antispam-control-q" value="5.2" autocomplete="off">
+		</p>
+		<p class="antispam-group antispam-group-e" style="display: none;">
+			<label>Leave this field empty</label>
+			<input type="text" name="antspm-e-email-url-website" class="antispam-control antispam-control-e" value="" autocomplete="off">
+		</p>
+			</form>
+			</div><!-- #respond -->
+	</div><!-- #comments -->                          </div>
